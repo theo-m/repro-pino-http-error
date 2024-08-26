@@ -1,8 +1,6 @@
 import "source-map-support/register";
-import "./instrumentation";
 import express, { type ErrorRequestHandler } from "express";
 import { pinoHttp } from "pino-http";
-import * as Sentry from "@sentry/node";
 
 import pino from "pino";
 
@@ -24,8 +22,6 @@ app.use(
 app.get("/", (_req, _res) => {
   throw new Error("not happy");
 });
-
-Sentry.setupExpressErrorHandler(app);
 
 const errHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   return res
